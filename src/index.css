@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lora:wght@600&display=swap");
+
+@import "tailwindcss";
+@import "swiper/css";
+
+@theme {
+  /* 🌑 Website Base Colors */
+  --color-website-black: #212a31;
+  --color-website-darkGray: #2e3944;
+  --color-website-lightGray: #d3d9d4;
+  --color-website-green: #124e66;
+  --color-website-lightGreen: #748d92;
+  --color-bg-lightGray: #fafafa;
+
+  /* 🖋 Typography */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Lora", serif;
+
+  /* 🎨 Brand & UI Colors */
+  --color-primary-orange: #ef6820;
+  --color-heading-blue: #194185;
+  --color-paragraph-gray: #717688;
+  --color-primary-border: #b2ddff;
+
+  /* 🪄 Card Background Gradient */
+  --color-card-background: linear-gradient(...), rgba(12, 16, 34, 0.6);
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+    background-color: var(--color-bg-lightGray);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Slow spinning rainbow border like Instagram */
+.avatar-border {
+  background: conic-gradient(
+    from 0deg,
+    #feda75,
+    #fa7e1e,
+    #d62976,
+    #962fbf,
+    #4f5bd5,
+    #feda75
+  );
+  border-radius: 50%;
+  animation: spin-slow 4s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* White ring inside to create spacing */
+.avatar-inner {
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@keyframes sidebarFloatRight {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes sidebarFloatLeft {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+}
