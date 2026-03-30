@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: .
+    platform: linux/amd64
+    image: softvence/angela_frontend:latest
+    ports:
+      - "3000:3000"
