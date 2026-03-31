@@ -1,5 +1,3 @@
-
-
 // Base stats interface
 export interface DashboardStats {
   free: number;
