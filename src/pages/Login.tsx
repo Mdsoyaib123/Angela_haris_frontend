@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     try {
       const result: LoginResponse = await login({ email, password }).unwrap();
-      const from = location.state?.from?.pathname || "/user-dashboard";
+      const from = location.state?.from?.pathname || '/profile';
 
       if (result.data.isTwoStepVerification) {
         navigate("/verify-2fa", {
