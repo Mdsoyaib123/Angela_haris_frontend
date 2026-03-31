@@ -76,9 +76,7 @@ export default function UserTransactions() {
                             {/* {Number(t.amount || 0) < 99
                               ? "Monthly"
                               : "Annually"} */}
-                              {
-                                t.interval
-                              }
+                            {t.interval}
                           </button>
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">

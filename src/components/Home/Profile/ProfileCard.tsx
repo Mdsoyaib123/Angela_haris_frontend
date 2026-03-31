@@ -80,7 +80,7 @@ const ProfileCard = () => {
   // const hasPremiumPlan = !!currentPlanData?.data;
 
   const { data: userData } = useAuthMeQuery();
-  const hasPremiumPlan = userData?.data?.user.subscribeStatus === 'FREE'
+  const hasPremiumPlan = userData?.data?.user.subscribeStatus === "FREE";
   const myId: string = userData?.data?.user?.id ?? "";
   const handleCopyProfileLink = async () => {
     if (hasPremiumPlan) {

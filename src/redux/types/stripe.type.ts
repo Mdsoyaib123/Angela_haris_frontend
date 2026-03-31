@@ -75,8 +75,8 @@ export interface CurrentPlanData {
   startedAt: string;
   endedAt: string;
   plan: Plan;
-  price : number;
-  name : string
+  price: number;
+  name: string;
 }
 
 export interface CurrentPlanResponse {

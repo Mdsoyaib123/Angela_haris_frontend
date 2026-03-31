@@ -48,8 +48,8 @@ export default function Subscriptions() {
     startIndex,
     startIndex + ROWS_PER_PAGE,
   );
-// console.log('transactions', transactions)
-console.log('paginatedTransactions', paginatedTransactions)
+  // console.log('transactions', transactions)
+  console.log("paginatedTransactions", paginatedTransactions);
   return (
     <div>
       <SubscriptionCard />
@@ -126,9 +126,7 @@ console.log('paginatedTransactions', paginatedTransactions)
                             {/* {Number(transaction.amount) < 99
                               ? "Monthly"
                               : "Annually"} */}
-                                {
-                                transaction?.interval
-                              }
+                            {transaction?.interval}
                           </button>
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">

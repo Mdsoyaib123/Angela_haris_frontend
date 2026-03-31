@@ -119,9 +119,7 @@ export default function SubscriptionAndBilling() {
                     <td className="align-middle p-2.5 whitespace-nowrap">
                       <button className="text-xs sm:text-sm font-medium text-white py-1 px-3 rounded-full bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl hover:brightness-110 active:translate-y-0 active:shadow-md focus:outline-none cursor-pointer">
                         {/* {Number(t.amount || 0) < 99 ? "Monthly" : "Annually"} */}
-                        {
-                          t?.interval
-                        }
+                        {t?.interval}
                       </button>
                     </td>
                     <td className="align-middle p-2.5 whitespace-nowrap text-xs sm:text-sm">
@@ -129,10 +127,11 @@ export default function SubscriptionAndBilling() {
                     </td>
                     <td className="align-middle p-2.5 whitespace-nowrap">
                       <span
-                        className={`text-xs sm:text-sm font-medium ${t.status === "Successfull"
+                        className={`text-xs sm:text-sm font-medium ${
+                          t.status === "Successfull"
                             ? "text-green-600"
                             : "text-red-600"
-                          }`}
+                        }`}
                       >
                         {t.status}
                       </span>
@@ -172,10 +171,11 @@ export default function SubscriptionAndBilling() {
                     </p>
                   </div>
                   <span
-                    className={`text-xs font-bold px-2.5 py-1 rounded-full ${t.status === "Successfull"
+                    className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                      t.status === "Successfull"
                         ? "bg-green-50 text-green-600 border border-green-100"
                         : "bg-red-50 text-red-600 border border-red-100"
-                      }`}
+                    }`}
                   >
                     {t.status}
                   </span>
@@ -241,10 +241,11 @@ export default function SubscriptionAndBilling() {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`h-8 w-8 flex items-center justify-center rounded-full text-sm font-medium cursor-pointer transition-all duration-200 ${currentPage === page
+                    className={`h-8 w-8 flex items-center justify-center rounded-full text-sm font-medium cursor-pointer transition-all duration-200 ${
+                      currentPage === page
                         ? "bg-linear-to-b from-[#6FAACC] to-[#395C70] text-white shadow-md scale-110"
                         : "text-gray-600 hover:bg-gray-200"
-                      }`}
+                    }`}
                   >
                     {page}
                   </button>
