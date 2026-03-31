@@ -56,9 +56,9 @@ const ContactInfo: React.FC = () => {
     {
       icon: <MdPhone size={24} />,
       title: "Call Us",
-      detail: "+1 (800) 555-0199",
+      detail: "+1 478-200-5701",
       subDetail: "Mon – Fri, 9am – 6pm EST",
-      href: "tel:+1478-200-5701",
+      href: "#",
     },
     {
       icon: <MdLocationOn size={24} />,
@@ -76,7 +76,7 @@ const ContactInfo: React.FC = () => {
     },
     {
       icon: <FaInstagram size={18} />,
-      href: "https://www.instagram.com/highlightzapp",
+      href: "#",
       label: "Instagram",
     },
     {
