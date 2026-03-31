@@ -7,6 +7,7 @@ export interface Transaction {
   plan: string;
   amount: number;
   currency: string;
+  interval: string;
   status: string;
   billingDate: string;
   receiptUrl: string;

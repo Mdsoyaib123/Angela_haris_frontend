@@ -22,6 +22,8 @@ export default function UserTransactions() {
     startIndex,
     startIndex + ROWS_PER_PAGE,
   );
+  // console.log("transactions", transactions);
+  console.log("paginatedTransactions", paginatedTransactions);
 
   return (
     <div>
@@ -71,9 +73,12 @@ export default function UserTransactions() {
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">
                           <button className="text-base font-medium text-white py-2.5 px-7 rounded-full bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl hover:brightness-110 active:translate-y-0 active:shadow-md focus:outline-none cursor-pointer">
-                            {Number(t.amount || 0) < 99
+                            {/* {Number(t.amount || 0) < 99
                               ? "Monthly"
-                              : "Annually"}
+                              : "Annually"} */}
+                              {
+                                t.interval
+                              }
                           </button>
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">
