@@ -17,7 +17,7 @@ import { IconType } from "react-icons";
 import { IoCardOutline, IoSettingsOutline } from "react-icons/io5";
 import { FiPieChart, FiPlusCircle, FiUsers } from "react-icons/fi";
 import { AiOutlineVideoCamera } from "react-icons/ai";
-import { TbBellRinging2 } from "react-icons/tb";
+// import { TbBellRinging2 } from "react-icons/tb";
 
 // Types
 export interface SidebarItem {
@@ -142,20 +142,18 @@ const AdminSidebar: React.FC<SidebarProps> = ({
                     onClick={onItemClick}
                     className={`group flex items-center justify-between w-full px-4 py-2.5 text-sm font-normal rounded-xl
   transition-all duration-300 ease-out cursor-pointer
-  ${
-    isActive
-      ? "text-white bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md"
-      : "text-black hover:text-white hover:bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] hover:shadow-xl hover:brightness-110"
-  }
+  ${isActive
+                        ? "text-white bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md"
+                        : "text-black hover:text-white hover:bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] hover:shadow-xl hover:brightness-110"
+                      }
   active:translate-y-0 active:shadow-md`}
                   >
                     <div className="flex items-center space-x-2 text-base">
                       <item.icon
-                        className={`w-5 h-5 transition-colors duration-300 ${
-                          isActive
+                        className={`w-5 h-5 transition-colors duration-300 ${isActive
                             ? "text-white"
                             : "text-black group-hover:text-white"
-                        }`}
+                          }`}
                       />
                       <span>{item.label}</span>
                     </div>
@@ -163,28 +161,25 @@ const AdminSidebar: React.FC<SidebarProps> = ({
                 ) : (
                   <button
                     onClick={() => toggleMenu(item.label)}
-                    className={`group flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out cursor-pointer ${
-                      isActive
+                    className={`group flex items-center justify-between w-full px-3 py-2 text-sm font-normal transition-all duration-300 ease-in-out cursor-pointer ${isActive
                         ? "text-[#3A5CFF] bg-[#1C1D28] rounded-xl shadow-md"
                         : "text-white hover:text-[#3A5CFF] hover:bg-[#1C1D28]/80 hover:rounded-xl hover:shadow-md"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center space-x-2 md:text-lg">
                       <item.icon
-                        className={`w-5 h-5 transition-all duration-300 ${
-                          isActive
+                        className={`w-5 h-5 transition-all duration-300 ${isActive
                             ? "text-[#3A5CFF]"
                             : "text-white group-hover:text-[#3A5CFF]"
-                        }`}
+                          }`}
                       />
                       <span>{item.label}</span>
                     </div>
 
                     {item.children && (
                       <ChevronDown
-                        className={`w-4 h-4 transform transition-transform duration-300 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                          }`}
                       />
                     )}
 
@@ -208,11 +203,10 @@ const AdminSidebar: React.FC<SidebarProps> = ({
                           key={child.label}
                           to={child.href}
                           onClick={onItemClick}
-                          className={`group block px-3 py-2 text-sm rounded-lg transition-all ${
-                            childActive
+                          className={`group block px-3 py-2 text-sm rounded-lg transition-all ${childActive
                               ? "text-[#3A5CFF] bg-[#1C1D28]"
                               : "text-gray-300 hover:text-[#3A5CFF] hover:bg-[#1C1D28]/70"
-                          }`}
+                            }`}
                         >
                           {child.label}
                         </Link>
