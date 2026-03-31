@@ -22,7 +22,7 @@ export default function AdminTransaction() {
     startIndex,
     startIndex + ROWS_PER_PAGE,
   );
-
+console.log('paginatedTransactions',paginatedTransactions)
   // console.log(paginatedTransactions[0].id, "paginatedTransactions");
   return (
     <div>
@@ -69,7 +69,10 @@ export default function AdminTransaction() {
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">
                           <button className="text-base font-medium text-white py-2.5 px-7 rounded-full bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl hover:brightness-110 active:translate-y-0 active:shadow-md focus:outline-none cursor-pointer">
-                            {t.amount < 99 ? "Monthly" : "Annually"}
+                            {/* {t.amount < 99 ? "Monthly" : "Annually"} */}
+                              {
+                                t.interval
+                              }
                           </button>
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">

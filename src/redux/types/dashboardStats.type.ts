@@ -8,6 +8,7 @@ export interface DashboardStats {
 
 // Transaction interface (empty array in your response, but defined for future use)
 export interface DashboardTransaction {
+  interval: ReactNode;
   id: string;
   transactionId: string;
   customer: string;
