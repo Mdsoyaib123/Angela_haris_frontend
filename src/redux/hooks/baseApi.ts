@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 // const baseURL = import.meta.env.VITE_API_ENDPOINT;
 const baseURL = `https://api.highlightzapp.co/api/v1`;
-// const baseURL = "https://angelaharris174-backend.onrender.com/api/v1";
+// const baseURL = "http://localhost:5001/api/v1";
 if (!baseURL) {
   throw new Error("VITE_API_ENDPOINT is not defined in environment variables");
 }
