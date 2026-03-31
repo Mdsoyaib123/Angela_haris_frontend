@@ -58,12 +58,12 @@ const ContactInfo: React.FC = () => {
       title: "Call Us",
       detail: "+1 (800) 555-0199",
       subDetail: "Mon – Fri, 9am – 6pm EST",
-      href: "tel:+18005550199",
+      href: "tel:+1478-200-5701",
     },
     {
       icon: <MdLocationOn size={24} />,
       title: "Our Office",
-      detail: "Tampa, Florida",
+      detail: "Warner Robins, GA",
       subDetail: "United States",
     },
   ];
@@ -76,7 +76,7 @@ const ContactInfo: React.FC = () => {
     },
     {
       icon: <FaInstagram size={18} />,
-      href: "#",
+      href: "https://www.instagram.com/highlightzapp",
       label: "Instagram",
     },
     {
