@@ -1,3 +1,5 @@
+
+
 // Base stats interface
 export interface DashboardStats {
   free: number;
@@ -8,7 +10,7 @@ export interface DashboardStats {
 
 // Transaction interface (empty array in your response, but defined for future use)
 export interface DashboardTransaction {
-  interval: ReactNode;
+  interval: string;
   id: string;
   transactionId: string;
   customer: string;
