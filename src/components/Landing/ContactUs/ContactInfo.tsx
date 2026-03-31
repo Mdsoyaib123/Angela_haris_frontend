@@ -76,7 +76,7 @@ const ContactInfo: React.FC = () => {
     },
     {
       icon: <FaInstagram size={18} />,
-      href: "#",
+      href: "https://www.instagram.com/highlightzapp",
       label: "Instagram",
     },
     {
