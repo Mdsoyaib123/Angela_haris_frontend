@@ -75,6 +75,8 @@ export interface UpdateProfilePayload {
   phoneNumber?: string;
   parentEmail?: string;
   sports?: string;
+  dominateHand?: string;
+  jerseyNumber?: number | string;
 }
 
 export interface ChangePasswordPayload {

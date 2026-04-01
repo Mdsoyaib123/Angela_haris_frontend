@@ -48,6 +48,8 @@ interface FormDataState {
   phoneNumber: string;
   clubTeam: string;
   sports: string;
+  dominateHand: string;
+  jerseyNumber: string;
 }
 
 const usStates = [
@@ -136,6 +138,8 @@ export default function EditProfileModal({
     phoneNumber: user?.phoneNumber || "",
     clubTeam: user?.clubTeam || "",
     sports: user?.sports || "Basketball",
+    dominateHand: user?.dominateHand || "",
+    jerseyNumber: user?.jerseyNumber?.toString() || "",
   });
 
   const [errors, setErrors] = useState<{ bio?: string }>({});
@@ -174,6 +178,8 @@ export default function EditProfileModal({
         phoneNumber: user.phoneNumber || "",
         clubTeam: user.clubTeam || "",
         sports: user.sports || "Basketball",
+        dominateHand: user.dominateHand || "",
+        jerseyNumber: user.jerseyNumber?.toString() || "",
       });
       setProfilePreview(user.imgUrl || null);
     }
@@ -245,6 +251,7 @@ export default function EditProfileModal({
           | "phoneNumber"
           | "clubTeam"
           | "sports"
+          | "dominateHand"
         >,
       ) => {
         const value = formData[field];
@@ -263,6 +270,7 @@ export default function EditProfileModal({
           | "spg"
           | "blk"
           | "gradYear"
+          | "jerseyNumber"
         >,
       ) => {
         const formDataKey = field === "blk" ? "bpg" : field;
@@ -295,6 +303,7 @@ export default function EditProfileModal({
       setStringField("phoneNumber");
       setStringField("clubTeam");
       setStringField("sports");
+      setStringField("dominateHand");
 
       // Set all number fields
       setNumberField("height");
@@ -306,6 +315,7 @@ export default function EditProfileModal({
       setNumberField("spg");
       setNumberField("blk");
       setNumberField("gradYear");
+      setNumberField("jerseyNumber");
 
       // Add image if selected
       if (selectedImage) {
@@ -579,6 +589,42 @@ export default function EditProfileModal({
                     </option>
                   ))}
                 </select>
+              </div>
+            </div>
+
+            {/* Dominant Hand & Jersey Number */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-gray-600 text-xs font-bold uppercase tracking-wider">
+                  Dominant Hand
+                </Label>
+                <select
+                  name="dominateHand"
+                  value={formData.dominateHand}
+                  onChange={(e) => handleInputChange(e as any)}
+                  className="w-full h-10 px-3 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white text-sm"
+                >
+                  <option disabled value="">
+                    Select Hand
+                  </option>
+                  <option value="Right">Right</option>
+                  <option value="Left">Left</option>
+                  <option value="Both">Both</option>
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-gray-600 text-xs font-bold uppercase tracking-wider">
+                  Jersey Number
+                </Label>
+                <Input
+                  name="jerseyNumber"
+                  type="number"
+                  value={formData.jerseyNumber}
+                  onChange={handleInputChange}
+                  placeholder="e.g. 23"
+                  className="h-10 rounded-xl border-gray-200 focus-visible:ring-green-500 text-sm"
+                />
               </div>
             </div>
 
