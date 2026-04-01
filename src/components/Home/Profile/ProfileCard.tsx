@@ -116,11 +116,11 @@ const ProfileCard = () => {
   // Format display values
   const heightDisplay = user.height
     ? (() => {
-        const totalInches = Number(user.height);
-        const feet = Math.floor(totalInches / 12);
-        const inches = totalInches % 12;
-        return `${feet}'${inches}"`;
-      })()
+      const totalInches = Number(user.height);
+      const feet = Math.floor(totalInches / 12);
+      const inches = totalInches % 12;
+      return `${feet}'${inches}"`;
+    })()
     : "—";
 
   const weightDisplay = user.weight ? `${user.weight} lbs` : "—";
@@ -135,14 +135,14 @@ const ProfileCard = () => {
   const parentNameDisplay = user.parentName || "—";
   const parentEmailDisplay = user.email || "—";
   const parentNumberDisplay = user.phoneNumber || "—";
-  const dominateHand = user?.dominateHand;
-  const jerseyNumber = user?.jerseyNumber;
+  const dominateHand = user?.dominateHand || "—";
+  const jerseyNumber = user?.jerseyNumber || "—";
   const dateOfBirthDisplay = user.dateOfBirth
     ? new Date(user.dateOfBirth).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
     : "—";
 
   // Helper function with proper types
@@ -164,13 +164,13 @@ const ProfileCard = () => {
   // Usage in your component
   const ageDisplay = user.dateOfBirth
     ? (() => {
-        const birthDate = new Date(user.dateOfBirth);
-        // Check if the date is valid (e.g., not "Invalid Date")
-        if (isNaN(birthDate.getTime())) {
-          return "—"; // fallback for invalid date strings
-        }
-        return `${calculateAge(birthDate)} years`;
-      })()
+      const birthDate = new Date(user.dateOfBirth);
+      // Check if the date is valid (e.g., not "Invalid Date")
+      if (isNaN(birthDate.getTime())) {
+        return "—"; // fallback for invalid date strings
+      }
+      return `${calculateAge(birthDate)} years`;
+    })()
     : "—";
   // Prepare stats for ProfileDataCard
   const stats = {
@@ -357,7 +357,7 @@ const ProfileCard = () => {
       <SendEmailModal
         isOpen={isSendEmailModalOpen}
         onClose={() => setIsSendEmailModalOpen(false)}
-        // links={`PROFILE LINK: ${window.location.origin}/${myId}`}  adjust based on available user fields
+      // links={`PROFILE LINK: ${window.location.origin}/${myId}`}  adjust based on available user fields
       />
 
       <UpgradeModal
