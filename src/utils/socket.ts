@@ -17,7 +17,7 @@ import { io, Socket } from "socket.io-client";
 let socket: Socket;
 
 export const connectSocket = (userId: string) => {
-  socket = io("https://api.highlightzapp.co", {
+  socket = io("https://api.highlightzapp.com", {
     query: { userId },
   });
 
