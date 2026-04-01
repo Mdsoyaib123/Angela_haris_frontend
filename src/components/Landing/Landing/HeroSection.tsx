@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
                 className="py-3 px-7 rounded-full border border-green-700 bg-white text-[#0C5302] font-semibold text-center shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl cursor-pointer"
               >
                 <span className="bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] bg-clip-text text-transparent">
-                  Watch How It Works
+                  How It Works
                 </span>
               </Link>
             </div>

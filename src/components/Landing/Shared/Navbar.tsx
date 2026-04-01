@@ -31,6 +31,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { useState } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import { useAuthMeQuery } from "@/redux/features/auth/authApi";
 import { useDispatch } from "react-redux";
@@ -96,6 +97,7 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { data: userData } = useAuthMeQuery();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -218,7 +220,7 @@ const Navbar = ({
               <img src={logoIcon} alt="logo" />
               <img src={logoText} alt="logo" />
             </Link>
-            <Sheet>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
                   <Menu className="size-4" />
@@ -230,6 +232,7 @@ const Navbar = ({
                     <Link
                       className="flex flex-col gap-1.5 items-center"
                       to={logo.url}
+                      onClick={() => setIsOpen(false)}
                     >
                       <img src={logoIcon} alt="logo" />
                       <img src={logoText} alt="logo" />
@@ -247,6 +250,7 @@ const Navbar = ({
                         item,
                         location.pathname,
                         location.hash,
+                        () => setIsOpen(false)
                       ),
                     )}
                   </Accordion>
@@ -261,6 +265,7 @@ const Navbar = ({
                               : "/user-dashboard"
                           }
                           className="w-full"
+                          onClick={() => setIsOpen(false)}
                         >
                           <Button
                             className="w-full text-green-600 rounded-full"
@@ -269,7 +274,7 @@ const Navbar = ({
                             Dashboard
                           </Button>
                         </Link>
-                        <Link to={"/profile"} className="w-full">
+                        <Link to={"/profile"} className="w-full" onClick={() => setIsOpen(false)}>
                           <Button
                             className="w-full text-green-600 rounded-full"
                             variant="outline"
@@ -278,7 +283,10 @@ const Navbar = ({
                           </Button>
                         </Link>
                         <Button
-                          onClick={handleLogout}
+                          onClick={() => {
+                            handleLogout();
+                            setIsOpen(false);
+                          }}
                           className="w-full text-red-600 rounded-full"
                           variant="outline"
                         >
@@ -290,6 +298,7 @@ const Navbar = ({
                         className="text-green-600 rounded-full"
                         asChild
                         variant="outline"
+                        onClick={() => setIsOpen(false)}
                       >
                         <Link to={auth.login.url}>{auth.login.title}</Link>
                       </Button>
@@ -326,7 +335,7 @@ const renderMenuItem = (
   const isHashLink = item.url.includes("#");
   const isActive = isHashLink
     ? currentPathname === (item.url.split("#")[0] || "/") &&
-      currentHash === `#${item.url.split("#")[1]}`
+    currentHash === `#${item.url.split("#")[1]}`
     : currentPathname === item.url && !currentHash;
 
   return (
@@ -354,6 +363,7 @@ const renderMobileMenuItem = (
   item: MenuItem,
   currentPathname: string,
   currentHash: string,
+  onClose?: () => void,
 ) => {
   if (item.items) {
     return (
@@ -363,7 +373,7 @@ const renderMobileMenuItem = (
         </AccordionTrigger>
         <AccordionContent className="mt-2">
           {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
+            <SubMenuLink key={subItem.title} item={subItem} onClose={onClose} />
           ))}
         </AccordionContent>
       </AccordionItem>
@@ -373,7 +383,7 @@ const renderMobileMenuItem = (
   const isHashLink = item.url.includes("#");
   const isActive = isHashLink
     ? currentPathname === (item.url.split("#")[0] || "/") &&
-      currentHash === `#${item.url.split("#")[1]}`
+    currentHash === `#${item.url.split("#")[1]}`
     : currentPathname === item.url && !currentHash;
 
   return (
@@ -381,6 +391,7 @@ const renderMobileMenuItem = (
       key={item.title}
       to={item.url}
       end={item.url === "/"}
+      onClick={onClose}
       className={({ isActive: routerActive }) => {
         const active = isHashLink ? isActive : routerActive;
         return cn(
@@ -396,10 +407,11 @@ const renderMobileMenuItem = (
   );
 };
 
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
+const SubMenuLink = ({ item, onClose }: { item: MenuItem; onClose?: () => void }) => {
   return (
     <NavLink
       to={item.url}
+      onClick={onClose}
       className={({ isActive }) =>
         cn(
           "group inline-flex w-max items-center justify-center px-4 py-2 font-semibold hover:bg-linear-to-b hover:from-[#11D000] hover:to-[#0C5302] hover:bg-clip-text hover:text-transparent duration-300",

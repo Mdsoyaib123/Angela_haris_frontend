@@ -24,7 +24,9 @@ const NetworkHero: React.FC = () => {
             athletes, educate Parents, and grow your revenue.
           </p>
           <Button className="bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] text-white px-8 md:py-7 py-6 rounded-full text-lg font-semibold hover:brightness-110 transition-all shadow-lg md:w-fit w-full cursor-pointer border-none">
-            <Link to="/signup">Apply to Join</Link>
+            <Link to="https://docs.google.com/forms/d/e/1FAIpQLSf01MIHaeYjGgIi-Ka-E3oUBdAJE02mW7cqyxRxHkB8iLhjGg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+              Apply to Join
+            </Link>
           </Button>
         </div>
       </div>
