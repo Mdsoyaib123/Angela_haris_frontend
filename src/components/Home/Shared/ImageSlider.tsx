@@ -144,6 +144,9 @@ export default function ImageSliderPostModal({
                   className="w-full h-full object-cover"
                   controls
                   autoPlay
+                  muted
+                  loop
+                  playsInline
                 />
               </SwiperSlide>
             )}

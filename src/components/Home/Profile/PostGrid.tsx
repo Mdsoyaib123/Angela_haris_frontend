@@ -85,7 +85,9 @@ const PostGrid = ({ posts, onPostClick }: PostGridProps) => {
                   <video
                     src={videoSrc}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-95"
+                    autoPlay
                     muted
+                    loop
                     playsInline
                     preload="metadata"
                   />

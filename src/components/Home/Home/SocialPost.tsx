@@ -146,6 +146,10 @@ export default function SocialPost({
               <video
                 src={mergedVideoUrl}
                 className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <div className="absolute top-2 right-2 w-7 h-7 rounded-md bg-white/90 flex items-center justify-center shadow-sm">
                 <Video className="w-4 h-4 text-black" />
