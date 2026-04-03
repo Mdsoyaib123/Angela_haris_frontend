@@ -111,8 +111,18 @@ const ReelsContent = () => {
     skip: !postIdFromUrl,
   });
 
-  const activePost =
-    allReelPosts.find((p) => p.id === postIdFromUrl) ?? singlePost;
+  const activePost = useMemo(() => {
+    const post = allReelPosts.find((p) => p.id === postIdFromUrl) ?? singlePost;
+    if (!post) return null;
+    return {
+      ...post,
+      user: post.user || {
+        id: profileUser?.id || effectiveUserId,
+        athleteFullName: profileUser?.athleteFullName || "Athlete",
+        imgUrl: profileUser?.imgUrl || null,
+      },
+    };
+  }, [allReelPosts, postIdFromUrl, singlePost, profileUser, effectiveUserId]);
 
   const handlePostClick = (postId: string) => {
     // Determine if this is a split clip ID (e.g. uuid-clip-0) and extract the original ID to open the modal

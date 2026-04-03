@@ -1,10 +1,20 @@
 import React from "react";
 
-const Avatar = ({ user, className = "" }) => {
+interface AvatarProps {
+  user?: {
+    name?: string;
+    athleteFullName?: string;
+    imgUrl?: string;
+  };
+  className?: string;
+}
+
+const Avatar = ({ user, className = "" }: AvatarProps) => {
   // Extract initials from user's name (fallback to '?')
   const getInitials = () => {
-    if (!user?.name) return "?";
-    const names = user.name.trim().split(" ");
+    const displayName = user?.athleteFullName || user?.name;
+    if (!displayName) return "?";
+    const names = displayName.trim().split(" ");
     if (names.length === 1) return names[0].charAt(0).toUpperCase();
     return (
       names[0].charAt(0) + names[names.length - 1].charAt(0)
@@ -15,15 +25,18 @@ const Avatar = ({ user, className = "" }) => {
   if (user?.imgUrl) {
     return (
       <img
-        src={user.imgUrl}
-        alt={user.name || "User avatar"}
+        src={user?.imgUrl}
+        alt={user?.athleteFullName || user?.name || "User avatar"}
         className={`rounded-full object-cover border-2 border-gray-300 ${className}`}
-        onError={(e) => {
+        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
           // If image fails to load, show fallback instead
-          e.target.style.display = "none"; // hide broken image
-          e.target.parentElement.querySelector(
+          e.currentTarget.style.display = "none"; // hide broken image
+          const fallback = e.currentTarget.parentElement?.querySelector(
             ".avatar-fallback",
-          ).style.display = "flex";
+          ) as HTMLElement;
+          if (fallback) {
+            fallback.style.display = "flex";
+          }
         }}
       />
     );
