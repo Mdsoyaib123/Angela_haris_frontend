@@ -9,7 +9,12 @@ import { toast } from "sonner";
 import { useSendRoadmapMutation } from "@/redux/features/roadmap/roadmapApi";
 
 const formSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .refine((val) => val === val.toLowerCase(), {
+      message: "Email must be in lowercase",
+    }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -84,9 +89,8 @@ const RecruitingRoadmap: React.FC = () => {
                     {...register("email")}
                     type="email"
                     placeholder="Enter your email"
-                    className={`w-full px-6 py-4 rounded-full bg-white border ${
-                      errors.email ? "border-red-500" : "border-gray-100"
-                    } shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] text-[#1A202C] placeholder:text-gray-400 focus:ring-2 focus:ring-[#10B981]/20 transition-all outline-none text-lg`}
+                    className={`w-full px-6 py-4 rounded-full bg-white border ${errors.email ? "border-red-500" : "border-gray-100"
+                      } shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] text-[#1A202C] placeholder:text-gray-400 focus:ring-2 focus:ring-[#10B981]/20 transition-all outline-none text-lg`}
                   />
                 </div>
 
