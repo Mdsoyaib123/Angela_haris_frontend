@@ -11,7 +11,9 @@ const formSchema = z.object({
   organizationName: z
     .string()
     .min(2, "Organization name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z.string().email("Please enter a valid email address").refine((val) => val === val.toLowerCase(), {
+    message: "Email must be in lowercase",
+  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -42,7 +44,7 @@ const NetworkApplication: React.FC = () => {
     } catch (error: any) {
       toast.error(
         error?.data?.message ||
-          "Failed to submit application. Please try again.",
+        "Failed to submit application. Please try again.",
       );
     }
   };
@@ -90,9 +92,8 @@ const NetworkApplication: React.FC = () => {
                 {...register("organizationName")}
                 type="text"
                 placeholder="Organization Name"
-                className={`w-full px-6 py-4 rounded-full bg-white border ${
-                  errors.organizationName ? "border-red-500" : "border-gray-100"
-                } focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm shadow-md`}
+                className={`w-full px-6 py-4 rounded-full bg-white border ${errors.organizationName ? "border-red-500" : "border-gray-100"
+                  } focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm shadow-md`}
               />
               {errors.organizationName && (
                 <p className="text-red-500 text-xs ml-4 font-medium italic">
@@ -106,9 +107,8 @@ const NetworkApplication: React.FC = () => {
                 {...register("email")}
                 type="email"
                 placeholder="Contact Email"
-                className={`w-full px-6 py-4 rounded-full bg-white border ${
-                  errors.email ? "border-red-500" : "border-gray-100"
-                } focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm shadow-md`}
+                className={`w-full px-6 py-4 rounded-full bg-white border ${errors.email ? "border-red-500" : "border-gray-100"
+                  } focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all text-sm shadow-md`}
               />
               {errors.email && (
                 <p className="text-red-500 text-xs ml-4 font-medium italic">
