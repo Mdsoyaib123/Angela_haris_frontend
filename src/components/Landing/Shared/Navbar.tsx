@@ -141,15 +141,15 @@ const Navbar = ({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-600 size-10 rounded-full hover:text-green-600 cursor-pointer"
+                    className="text-gray-600 size-10 border overflow-hidden rounded-full hover:text-green-600 cursor-pointer"
                   >
                     {imgUrl ? (
-                      <div className="p-0.5">
-                        <div className="avatar-inner">
+                      <div className="p-0.5 w-full h-full">
+                        <div className="w-full h-full">
                           <img
                             src={imgUrl}
                             alt="User"
-                            className="rounded-full object-fill"
+                            className="w-full h-full object-cover rounded-full"
                           />
                         </div>
                       </div>
