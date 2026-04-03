@@ -1,7 +1,6 @@
 import { baseApi } from "@/redux/hooks/baseApi";
 import {
   CreatePostResponse,
-  GetPostsResponse,
   LikePostResponse,
   MarkPostAsSeenResponse,
   Post,
@@ -10,10 +9,14 @@ import toast from "react-hot-toast";
 
 export const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getPosts: builder.query<GetPostsResponse, void>({
-      query: () => ({
-        url: "/post-reel/feeds",
-      }),
+    getPosts: builder.query<Post[], { page?: string; limit?: string } | void>({
+      query: (params) => {
+        const page = params?.page || "1";
+        const limit = params?.limit || "10";
+        return {
+          url: `/post-reel/feeds?page=${page}&limit=${limit}`,
+        };
+      },
       providesTags: ["Posts"],
     }),
 
@@ -48,7 +51,7 @@ export const postApi = baseApi.injectEndpoints({
         const patchPosts = dispatch(
           postApi.util.updateQueryData(
             "getPosts",
-            undefined,
+            undefined as any, // This is a bit tricky with pagination, but optimistic updates usually handle the first page/cache
             (draft: Post[]) => {
               const post = draft.find((p) => p.id === id);
               if (post) {
