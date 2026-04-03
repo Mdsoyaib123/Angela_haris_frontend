@@ -11,9 +11,7 @@ const formSchema = z.object({
   organizationName: z
     .string()
     .min(2, "Organization name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address").refine((val) => val === val.toLowerCase(), {
-    message: "Email must be in lowercase",
-  }),
+  email: z.string().email("Please enter a valid email address").transform((val) => val.toLowerCase()),
 });
 
 type FormValues = z.infer<typeof formSchema>;
