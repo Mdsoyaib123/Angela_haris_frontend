@@ -12,9 +12,7 @@ const formSchema = z.object({
   email: z
     .string()
     .email("Please enter a valid email address")
-    .refine((val) => val === val.toLowerCase(), {
-      message: "Email must be in lowercase",
-    }),
+    .transform((val) => val.toLowerCase()),
 });
 
 type FormValues = z.infer<typeof formSchema>;
