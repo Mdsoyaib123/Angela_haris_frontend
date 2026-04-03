@@ -225,21 +225,23 @@ export default function SocialPost({
 
               <div className="flex items-center gap-4 ml-auto">
                 {/* Like */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleLike(e);
-                  }}
-                  className="p-1 text-gray-600 hover:text-red-500 transition-all duration-300 transform active:scale-90 cursor-pointer"
-                >
-                  <Heart
-                    size={20}
-                    fill={isLiked ? "currentColor" : "none"}
-                    className={`transition-all duration-200 sm:w-6 sm:h-6 ${
-                      isLiked ? "scale-110 text-red-500" : ""
-                    }`}
-                  />
-                </button>
+                {user && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleLike(e);
+                    }}
+                    className="p-1 text-gray-600 hover:text-red-500 transition-all duration-300 transform active:scale-90 cursor-pointer"
+                  >
+                    <Heart
+                      size={20}
+                      fill={isLiked ? "currentColor" : "none"}
+                      className={`transition-all duration-200 sm:w-6 sm:h-6 ${
+                        isLiked ? "scale-110 text-red-500" : ""
+                      }`}
+                    />
+                  </button>
+                )}
 
                 {/* Send/Share */}
                 <button
@@ -255,12 +257,14 @@ export default function SocialPost({
                 </button>
 
                 {/* Delete */}
-                <button
-                  onClick={(e) => handleDelete(e)}
-                  className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </button>
+                {user && (
+                  <button
+                    onClick={(e) => handleDelete(e)}
+                    className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { PiImagesSquareDuotone } from "react-icons/pi";
 import Swal from "sweetalert2";
 import { Post, ImagePost, HighlightPost } from "@/redux/types/post.type";
 import { useDeletePostMutation } from "@/redux/features/post/postApi";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface PostGridProps {
   posts: Post[];
@@ -11,6 +12,7 @@ interface PostGridProps {
 }
 
 const PostGrid = ({ posts, onPostClick }: PostGridProps) => {
+  const { user } = useAppSelector((state) => state.auth);
   const [deletePost] = useDeletePostMutation();
 
   const handleDelete = async (post: Post, e: React.MouseEvent) => {
@@ -113,24 +115,16 @@ const PostGrid = ({ posts, onPostClick }: PostGridProps) => {
               </div>
 
               {/* Bottom controls */}
-              <div className="absolute bottom-2 left-2 flex gap-2 opacity-0 group-hover:opacity-100 transition z-40">
-                {/* <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("Details", post.id);
-                    // optional: open details modal
-                  }}
-                  className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
-                >
-                  <MoreHorizontal className="w-5 h-5" />
-                </button> */}
-                <button
-                  onClick={(e) => handleDelete(post, e)}
-                  className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </button>
-              </div>
+              {user && (
+                <div className="absolute bottom-2 left-2 flex gap-2 opacity-0 group-hover:opacity-100 transition z-40">
+                  <button
+                    onClick={(e) => handleDelete(post, e)}
+                    className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}

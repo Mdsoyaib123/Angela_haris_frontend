@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { MoreHorizontal, Trash2, Video, Heart } from "lucide-react";
 import { PiImagesSquareDuotone } from "react-icons/pi";
+import { useAppSelector } from "@/redux/hooks/redux-hook";
 
 interface MediaItem {
   id: string;
@@ -21,6 +22,7 @@ export default function PostsGallery({
   onDelete,
   onMenuClick,
 }: PostsGalleryProps) {
+  const { user } = useAppSelector((state) => state.auth);
   const [likedItems, setLikedItems] = useState<Record<string, boolean>>({});
   const [showHeart, setShowHeart] = useState<string | null>(null);
 
@@ -28,6 +30,7 @@ export default function PostsGallery({
 
   /* ---------------- LIKE TOGGLE ---------------- */
   const toggleLike = (id: string) => {
+    if (!user) return;
     setLikedItems((prev) => {
       const newValue = !prev[id];
 
@@ -120,30 +123,32 @@ export default function PostsGallery({
           </div>
 
           {/* ================= BOTTOM CONTROLS ================= */}
-          <div className="absolute bottom-2 left-2 flex gap-2 opacity-0 group-hover:opacity-100 transition z-40">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onMenuClick?.(item.id);
-              }}
-              className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
-            >
-              <MoreHorizontal className="w-5 h-5" />
-            </button>
+          {user && (
+            <div className="absolute bottom-2 left-2 flex gap-2 opacity-0 group-hover:opacity-100 transition z-40">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onMenuClick?.(item.id);
+                }}
+                className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
+              >
+                <MoreHorizontal className="w-5 h-5" />
+              </button>
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete?.(item.id);
-              }}
-              className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
-            >
-              <Trash2 className="w-5 h-5 " />
-            </button>
-          </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete?.(item.id);
+                }}
+                className="w-8 h-8 bg-white/90 rounded-md flex items-center justify-center"
+              >
+                <Trash2 className="w-5 h-5 " />
+              </button>
+            </div>
+          )}
 
           {/* ================= LIKE INDICATOR ================= */}
-          {likedItems[item.id] && (
+          {user && likedItems[item.id] && (
             <div className="absolute bottom-3 right-3 z-30 pointer-events-none">
               <div className="w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center">
                 <Heart className="w-5 h-5 text-red-500 fill-red-500" />

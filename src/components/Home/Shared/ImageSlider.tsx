@@ -257,18 +257,20 @@ export default function ImageSliderPostModal({
                 <span className="text-gray-400">{viewCount}</span>
               </button>
               {/* Like */}
-              <button
-                onClick={handleLike}
-                className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90 cursor-pointer"
-              >
-                <Heart
-                  size={20}
-                  fill={isLiked ? "currentColor" : "none"}
-                  className={`transition-transform duration-200 ${
-                    isLiked ? "scale-125 text-red-500" : ""
-                  }`}
-                />
-              </button>
+              {user && (
+                <button
+                  onClick={handleLike}
+                  className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90 cursor-pointer"
+                >
+                  <Heart
+                    size={20}
+                    fill={isLiked ? "currentColor" : "none"}
+                    className={`transition-transform duration-200 ${
+                      isLiked ? "scale-125 text-red-500" : ""
+                    }`}
+                  />
+                </button>
+              )}
 
               {/* Send */}
               <button
