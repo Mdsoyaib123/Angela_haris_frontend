@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import Loader from "@/components/AdminDashboard/Shared/Loader";
 import { Post } from "@/redux/types/post.type";
+import PostCardSkeleton from "../Shared/PostCardSkeleton";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -115,52 +116,4 @@ export default function Home() {
   );
 }
 
-function PostCardSkeleton() {
-  return (
-    <div className="w-full bg-transparent rounded-lg flex flex-col md:flex-row animate-pulse p-2">
-      {/* Left Image */}
-      <div className="w-full md:w-48 h-64 md:h-auto bg-gray-200 rounded-t-lg md:rounded-l-lg md:rounded-t-none" />
 
-      {/* Right Content */}
-      <div className="flex-1 min-w-0 flex flex-col space-y-4 p-4">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-          <div className="flex items-center gap-3">
-            {/* Avatar */}
-            <div className="w-12 h-12 rounded-full bg-gray-300" />
-            {/* Username & Time */}
-            <div className="flex flex-col gap-1">
-              <div className="h-4 w-32 bg-gray-300 rounded" />
-              <div className="h-3 w-20 bg-gray-300 rounded" />
-            </div>
-          </div>
-          {/* Close / More button placeholder */}
-          <div className="w-5 h-5 bg-gray-300 rounded-full" />
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 flex flex-col space-y-3">
-          {/* Likes */}
-          <div className="h-4 w-24 bg-gray-300 rounded" />
-
-          {/* Description */}
-          <div className="space-y-2">
-            <div className="h-3 w-full bg-gray-200 rounded" />
-            <div className="h-3 w-5/6 bg-gray-200 rounded" />
-            <div className="h-3 w-4/6 bg-gray-200 rounded" />
-          </div>
-
-          {/* Time */}
-          <div className="h-3 w-16 bg-gray-300 rounded" />
-
-          {/* Actions */}
-          <div className="flex items-center gap-3 pt-2">
-            <div className="h-6 w-6 bg-gray-300 rounded-full" />
-            <div className="h-6 w-6 bg-gray-300 rounded-full" />
-            <div className="h-6 w-6 bg-gray-300 rounded-full" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}

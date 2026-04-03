@@ -11,6 +11,7 @@ import { useAuthMeQuery } from "@/redux/features/auth/authApi";
 import { useGetUserByIdQuery } from "@/redux/features/profile/profileApi";
 import Loader from "@/components/AdminDashboard/Shared/Loader";
 import { useAppSelector } from "@/hooks/useRedux";
+import PostCardSkeleton from "../Shared/PostCardSkeleton";
 
 // Define types (adjust according to your actual API response)
 interface Post {
@@ -198,6 +199,13 @@ const AllContent = () => {
   return (
     <>
       <div className="space-y-6">
+        {isFetching && page === 1 && (
+          <>
+            <PostCardSkeleton />
+            <PostCardSkeleton />
+            <PostCardSkeleton />
+          </>
+        )}
         {posts.map((post) => (
           <SocialPost
             key={post.id}
