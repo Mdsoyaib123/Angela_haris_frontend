@@ -19,8 +19,5 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-    esbuild: {
-      drop: ["console", "debugger"],
-    },
   },
 ]);
