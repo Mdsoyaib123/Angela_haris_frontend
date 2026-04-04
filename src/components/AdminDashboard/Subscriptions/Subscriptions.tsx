@@ -5,6 +5,8 @@ import { useGetDashboardStatsQuery } from "@/redux/features/dashboard-stats/dash
 import { TableSkeleton } from "./TableSkeleton";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useExportTransactionsCsvMutation } from "@/redux/features/transactions/transactionsAdminApi";
+import ExcelJS from "exceljs";
+
 
 const ROWS_PER_PAGE = 9;
 
@@ -24,14 +26,35 @@ export default function Subscriptions() {
 
   const handleExportCsv = async () => {
     try {
-      // Trigger the mutation and get the blob
+      // Trigger the mutation and get the blob (which is CSV from backend)
       const blob = await exportCsv().unwrap();
 
-      // Create a download link
-      const url = window.URL.createObjectURL(blob);
+      // Read the blob as text
+      const text = await blob.text();
+
+      // Create a new workbook and worksheet
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Transactions");
+
+      // Simple manual CSV parsing
+      const rows = text.split("\n");
+      rows.forEach((row) => {
+        if (row.trim()) {
+          // Splitting by comma, assuming no commas inside the data
+          // For more robust CSV parsing, a library like 'papaparse' would be needed.
+          worksheet.addRow(row.split(","));
+        }
+      });
+
+      // Write the workbook to a buffer, create a blob and download it
+      const buffer = await workbook.xlsx.writeBuffer();
+      const excelBlob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = window.URL.createObjectURL(excelBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "transactions.csv"); // filename
+      link.setAttribute("download", "transactions.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -41,6 +64,7 @@ export default function Subscriptions() {
       // Optionally show a toast notification here
     }
   };
+
 
   const totalPages = Math.ceil(transactions.length / ROWS_PER_PAGE);
 
@@ -67,7 +91,7 @@ export default function Subscriptions() {
             className="text-base sm:text-base font-medium text-white py-2 px-5 sm:py-2.5 sm:px-7 rounded-full bg-[linear-gradient(180deg,#11D000_0%,#0C5302_100%)] shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl hover:brightness-110 active:translate-y-0 active:shadow-md focus:outline-none cursor-pointer flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <MdOutlineFileUpload className="h-6 w-6 sm:h-7 sm:w-7" />
-            {isExporting ? "Exporting..." : "Export All (CSV)"}
+            {isExporting ? "Exporting..." : "Export All"}
           </button>
         </div>
         {/* Table Section - Takes full height */}
