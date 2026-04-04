@@ -12,6 +12,7 @@ export default function Subscriptions() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data, isLoading } = useGetDashboardStatsQuery();
+  console.log("data", data);
   const transactions = data?.data?.transactions || [];
   const [selectedTransactionId, setSelectedTransactionId] = useState<
     string | null
@@ -126,7 +127,7 @@ export default function Subscriptions() {
                             {/* {Number(transaction.amount) < 99
                               ? "Monthly"
                               : "Annually"} */}
-                            {transaction?.interval}
+                            {transaction?.plan}
                           </button>
                         </td>
                         <td className="align-middle p-3 whitespace-nowrap">
@@ -181,11 +182,10 @@ export default function Subscriptions() {
                               key={page}
                               onClick={() => setCurrentPage(page)}
                               className={`h-7 w-7 flex items-center justify-center rounded-full text-base cursor-pointer
-        ${
-          currentPage === page
-            ? "bg-linear-to-b from-[#6FAACC] to-[#395C70] text-white"
-            : "text-black hover:bg-linear-to-b hover:from-[#6FAACC] hover:to-[#395C70] hover:text-white"
-        }`}
+        ${currentPage === page
+                                  ? "bg-linear-to-b from-[#6FAACC] to-[#395C70] text-white"
+                                  : "text-black hover:bg-linear-to-b hover:from-[#6FAACC] hover:to-[#395C70] hover:text-white"
+                                }`}
                             >
                               {page}
                             </button>
