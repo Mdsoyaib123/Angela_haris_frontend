@@ -6,6 +6,7 @@ import { TableSkeleton } from "./TableSkeleton";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useExportTransactionsCsvMutation } from "@/redux/features/transactions/transactionsAdminApi";
 import ExcelJS from "exceljs";
+import Papa from "papaparse";
 
 
 const ROWS_PER_PAGE = 9;
@@ -28,33 +29,73 @@ export default function Subscriptions() {
     try {
       // Trigger the mutation and get the blob (which is CSV from backend)
       const blob = await exportCsv().unwrap();
-
-      // Read the blob as text
       const text = await blob.text();
+
+      // Robust CSV parsing using papaparse
+      const parseResult = Papa.parse(text, {
+        skipEmptyLines: true,
+      });
+
+      if (parseResult.errors.length > 0) {
+        console.error("CSV Parsing errors:", parseResult.errors);
+      }
+
+      const rows = parseResult.data as string[][];
 
       // Create a new workbook and worksheet
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Transactions");
 
-      // Simple manual CSV parsing
-      const rows = text.split("\n");
-      rows.forEach((row) => {
-        if (row.trim()) {
-          // Splitting by comma, assuming no commas inside the data
-          // For more robust CSV parsing, a library like 'papaparse' would be needed.
-          worksheet.addRow(row.split(","));
+      // Add rows and format headers
+      rows.forEach((row, index) => {
+        const addedRow = worksheet.addRow(row);
+
+        // Style the header row (first row)
+        if (index === 0) {
+          addedRow.eachCell((cell) => {
+            cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+            cell.fill = {
+              type: "pattern",
+              pattern: "solid",
+              fgColor: { argb: "FF395C70" }, // Using a variation of the UI button color
+            };
+            cell.alignment = { vertical: "middle", horizontal: "center" };
+          });
+          addedRow.height = 25;
+        } else {
+          // Alternating row colors for better readability
+          if (index % 2 === 0) {
+            addedRow.eachCell((cell) => {
+              cell.fill = {
+                type: "pattern",
+                pattern: "solid",
+                fgColor: { argb: "FFF9FAFB" },
+              };
+            });
+          }
         }
       });
 
-      // Write the workbook to a buffer, create a blob and download it
+      // Auto-width columns (simple estimation)
+      worksheet.columns.forEach((column) => {
+        let maxLen = 0;
+        column.eachCell?.({ includeEmpty: true }, (cell) => {
+          const len = cell.value ? cell.value.toString().length : 0;
+          if (len > maxLen) maxLen = len;
+        });
+        column.width = maxLen < 12 ? 12 : maxLen + 2;
+      });
+
+      // Write the workbook to a buffer and trigger download
       const buffer = await workbook.xlsx.writeBuffer();
       const excelBlob = new Blob([buffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
+
       const url = window.URL.createObjectURL(excelBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "transactions.xlsx");
+      link.setAttribute("download", "transactions_report.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -64,6 +105,7 @@ export default function Subscriptions() {
       // Optionally show a toast notification here
     }
   };
+
 
 
   const totalPages = Math.ceil(transactions.length / ROWS_PER_PAGE);
