@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
 interface GenerateAccessModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -128,9 +129,9 @@ export default function GenerateAccessModal({
       toast.success("Organization link generated successfully!");
 
       // Redirect to Stripe onboarding
-      if (onboardingUrl) {
-        window.location.href = onboardingUrl;
-      }
+      // if (onboardingUrl) {
+      //   window.location.href = onboardingUrl;
+      // }
     } catch (err: any) {
       const message =
         err?.data?.message ?? "Failed to generate link. Please try again.";
