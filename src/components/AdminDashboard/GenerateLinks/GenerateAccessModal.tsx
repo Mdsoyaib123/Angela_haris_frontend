@@ -122,7 +122,7 @@ export default function GenerateAccessModal({
         email: form.email.trim(),
       }).unwrap();
 
-      const onboardingUrl = result.organization.onBoardingLink;
+      // const onboardingUrl = result.organization.onBoardingLink;
 
       setGeneratedLink(result.organization.accessUrl);
 
