@@ -148,7 +148,13 @@ const dateOfBirthDisplay = user.dateOfBirth
 
   const ageDisplay = user.dateOfBirth
     ? (() => {
-      const birthDate = new Date(user.dateOfBirth);
+     const [year, month, day] = user.dateOfBirth
+  .split("T")[0]
+  .split("-")
+  .map(Number);
+
+const birthDate = new Date(year, month - 1, day);
+
       if (isNaN(birthDate.getTime())) return "—";
       return `${calculateAge(birthDate)} years`;
     })()

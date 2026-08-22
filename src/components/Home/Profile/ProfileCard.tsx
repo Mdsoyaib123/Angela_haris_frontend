@@ -161,7 +161,7 @@ const dateOfBirthDisplay = user.dateOfBirth
       return `${months[Number(month) - 1]} ${Number(day)}, ${year}`;
     })()
   : "—";
-  
+
   // Helper function with proper types
   function calculateAge(birthDate: Date): number {
     const today = new Date();
@@ -179,16 +179,23 @@ const dateOfBirthDisplay = user.dateOfBirth
   }
 
   // Usage in your component
-  const ageDisplay = user.dateOfBirth
-    ? (() => {
-      const birthDate = new Date(user.dateOfBirth);
-      // Check if the date is valid (e.g., not "Invalid Date")
+const ageDisplay = user.dateOfBirth
+  ? (() => {
+      const [year, month, day] = user.dateOfBirth
+        .split("T")[0]
+        .split("-")
+        .map(Number);
+
+      const birthDate = new Date(year, month - 1, day);
+
       if (isNaN(birthDate.getTime())) {
-        return "—"; // fallback for invalid date strings
+        return "—";
       }
+
       return `${calculateAge(birthDate)} years`;
     })()
-    : "—";
+  : "—";
+  
   // Prepare stats for ProfileDataCard
   const stats = {
     ppg: user.ppg,
