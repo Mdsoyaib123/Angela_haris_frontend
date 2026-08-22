@@ -137,14 +137,31 @@ const ProfileCard = () => {
   const parentNumberDisplay = user.phoneNumber || "—";
   const dominateHand = user?.dominateHand || "—";
   const jerseyNumber = user?.jerseyNumber || "—";
-  const dateOfBirthDisplay = user.dateOfBirth
-    ? new Date(user.dateOfBirth).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    })
-    : "—";
+const dateOfBirthDisplay = user.dateOfBirth
+  ? (() => {
+      const date = user.dateOfBirth.split("T")[0];
 
+      const [year, month, day] = date.split("-");
+
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+
+      return `${months[Number(month) - 1]} ${Number(day)}, ${year}`;
+    })()
+  : "—";
+  
   // Helper function with proper types
   function calculateAge(birthDate: Date): number {
     const today = new Date();
